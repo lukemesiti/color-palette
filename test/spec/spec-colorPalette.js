@@ -1,0 +1,3 @@
+describe("color-palette", function () {
+  
+});
