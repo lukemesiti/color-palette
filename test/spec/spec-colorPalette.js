@@ -42,5 +42,9 @@ describe("color-palette", function () {
       expect(colorGradient6).toEqual([]);
       expect(colorGradient7).toEqual([]);
     });
+    it("should return an array of 'length' if all arguments are valid", function () {
+      var colorGradient = colorPalette.getColorGradient("#fff", 1);
+      expect(colorGradient.length).toEqual(1);
+    });
   });
 });

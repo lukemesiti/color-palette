@@ -7,7 +7,6 @@ Number.isInteger = Number.isInteger || function(value) {
 };
 
 (function(exports){
-  // var colorPalette = {};
 
   exports.getColorGradient = function(hex, length) {
     if (hex == null || length == null) {
@@ -16,9 +15,13 @@ Number.isInteger = Number.isInteger || function(value) {
     if(!/^#([0-9a-f]{3}){1,2}$/.test(hex)) {
       return [];
     }
-    if(!Number.isInteger(length) || length <= 1 || length > 5) {
+    if(!Number.isInteger(length)) {
       return [];
     }
+    if(length < 1 || length > 5) {
+      return [];
+    }
+    return [hex];
   };
 
 })(this.colorPalette = {});
