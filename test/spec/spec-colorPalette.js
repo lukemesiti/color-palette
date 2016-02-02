@@ -42,9 +42,16 @@ describe("color-palette", function () {
       expect(colorGradient6).toEqual([]);
       expect(colorGradient7).toEqual([]);
     });
-    it("should return an array of 'length' if all arguments are valid", function () {
-      var colorGradient = colorPalette.getColorGradient("#fff", 1);
-      expect(colorGradient.length).toEqual(1);
+    it("should return an array the size of the length argument if all arguments are valid", function () {
+      var colorGradient1 = colorPalette.getColorGradient("#fff", 1);
+      var colorGradient2 = colorPalette.getColorGradient("#fff", 2);
+      var colorGradient5 = colorPalette.getColorGradient("#fff", 5);
+      expect(colorGradient1.length).toEqual(1);
+      expect(colorGradient2.length).toEqual(2);
+      expect(colorGradient5.length).toEqual(5);
+    });
+    it("should return an array of shades of the provided hex value", function () {
+      var colorGradient1 = colorPalette.getColorGradient("")
     });
   });
 });
