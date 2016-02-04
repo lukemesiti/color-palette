@@ -41,6 +41,19 @@ Number.isInteger = Number.isInteger || function(value) {
     }
   }
 
+  function rgbToHex(red, gree, blue) {
+    var r = Math.round(red).toString(16);
+    r = ("00" + r).substr(r.length);
+
+    var g = Math.round(green).toString(16);
+    g = ("00" + g).substr(g.length);
+
+    var b = Math.round(blue).toString(16);
+    b = ("00" + b).substr(b.length);
+
+    return '#' + r + g + b;
+  }
+
   function rgbToHsv(red, green, blue) {
     red = red / 255;
     green = green / 255;
