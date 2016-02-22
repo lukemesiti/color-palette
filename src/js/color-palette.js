@@ -12,6 +12,7 @@ Number.isInteger = Number.isInteger || function(value) {
     if (hex == null || length == null) {
       return [];
     }
+    // is valid hex value
     if(!/^#([0-9a-f]{3}){1,2}$/.test(hex)) {
       return [];
     }
@@ -23,11 +24,79 @@ Number.isInteger = Number.isInteger || function(value) {
     }
 
     var colorGradient = [];
-    for(var i = 0; i < length; i++) {
-      colorGradient.push(hex);
-    }
+    // for(var i = 0; i < length; i++) {
+    //   colorGradient.push(hex);
+    // }
+
+    var rgb = hexToRgb(hex);
+    var hsv = rgbToHsv(rgb.r, rgb.g, rgb.b);
+
+    var variations = getColorVariations(hsv.s, hsv.v);
+
+    rgb = hsvToRgb(hsv.h, variations[0][0], variations[0][1]);
+    var firstVariation = rgbToHex(rgb.red, rgb.green, rgb.blue);
+
+    rgb = hsvToRgb(hsv.h, variations[1][0], variations[1][1]);
+    var secondVariation = rgbToHex(rgb.red, rgb.green, rgb.blue);
+
+    colorGradient.push(hex);
+    colorGradient.push(firstVariation);
+    colorGradient.push(secondVariation);
+
     return colorGradient;
   };
+
+  function getColorVariations(saturation, v) {
+     var middleOf = {
+         areaOne: [0.5, 0.9],
+         areaTwo: [0.7, 0.9],
+         areaThree: [0.9, 0.9],
+         areaFour: [0.5, 0.7],
+         areaFive: [0.7, 0.7],
+         areaSix: [0.9, 0.7],
+         areaSeven: [0.5, 0.5],
+         areaEight: [0.7, 0.5],
+         areaNine: [0.7, 0.5]
+     }
+
+     // area 1
+     if (saturation >= 0.40 && saturation < 0.60 && v >= 0.80) {
+         return [middleOf.areaThree, middleOf.areaNine];
+     }
+     // area 2
+     else if (saturation >= 0.60 && saturation < 0.80 && v >= 0.80) {
+         return [middleOf.areaSeven, middleOf.areaNine];
+     }
+     // area 3
+     else if (saturation >= 0.80 && value >= 0.80) {
+         return [middleOf.areaOne, middleOf.areaNine];
+     }
+     // area 4
+     else if (saturation >= 0.40 && saturation < 0.60 && v >= 0.60 && v < 0.80) {
+         return [middleOf.areaThree, middleOf.areaNine];
+     }
+     // area 5
+     else if (saturation >= 0.60 && saturation < 0.80 && v >= 0.60 && v < 0.80) {
+         return [middleOf.areaOne, middleOf.areaNine];
+     }
+     // area 6
+     else if (saturation >= 0.80 && v >= 0.60 && v < 0.80) {
+         return [middleOf.areaOne, middleOf.areaSeven];
+     }
+     // area 7
+     else if (saturation >= 0.40 && saturation < 0.60 && v >= 0.40 && v < 0.60) {
+         return [middleOf.areaOne, middleOf.areaNine];
+     }
+     // area 8
+     else if (saturation >= 0.60 && saturation < 0.80 && v >= 0.40 && v < 0.60) {
+         return [middleOf.areaOne, middleOf.areaThree];
+     }
+     // area 9
+     else if (saturation >= 0.80 && v >= 0.40 && v < 0.60) {
+         return [middleOf.areaThree, middleOf.areaSeven];
+     }
+     return [middleOf.areaTwo, middleOf.areaSix];
+  }
 
   function hexToRgb(hex) {
     var hex = hex.substring(1);    // strip #
@@ -41,7 +110,7 @@ Number.isInteger = Number.isInteger || function(value) {
     }
   }
 
-  function rgbToHex(red, gree, blue) {
+  function rgbToHex(red, green, blue) {
     var r = Math.round(red).toString(16);
     r = ("00" + r).substr(r.length);
 
@@ -85,11 +154,32 @@ Number.isInteger = Number.isInteger || function(value) {
 		var value = (max * 100) | 0;
 
     return {
-      hue: hue,
-      saturation: saturation,
-      value: value
+      h: hue,
+      s: saturation,
+      v: value
     }
   }
+
+  // function hsvToRgb(h, s, v) {
+  //     var r, g, b;
+  //
+  //     var i = Math.floor(h * 6);
+  //     var f = h * 6 - i;
+  //     var p = v * (1 - s);
+  //     var q = v * (1 - f * s);
+  //     var t = v * (1 - (1 - f) * s);
+  //
+  //     switch (i % 6) {
+  //         case 0: r = v, g = t, b = p; break;
+  //         case 1: r = q, g = v, b = p; break;
+  //         case 2: r = p, g = v, b = t; break;
+  //         case 3: r = p, g = q, b = v; break;
+  //         case 4: r = t, g = p, b = v; break;
+  //         case 5: r = v, g = p, b = q; break;
+  //     }
+  //
+  //     return { red: r * 255, green: g * 255, blue: b * 255};
+  // }
 
   function hsvToRgb(hue, saturation, value) {
     saturation = saturation / 100;
