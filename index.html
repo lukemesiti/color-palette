@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>color palette</title>
+    <script src="src/js/color-palette.js"></script>
+  </head>
+  <body>
+    <input class="js-color-picker" type="color" onchange="getColorVal()"/>
+    <ul class="js-gradient-list">
+
+    </ul>
+    <script type="text/javascript">
+    function getColorVal(){
+      var colorPicker = document.querySelector(".js-color-picker");
+      console.log(colorPalette.getColorGradient(colorPicker.value, 3));
+      var gradientList = colorPalette.getColorGradient(colorPicker.value, 3);
+
+      var ul = document.querySelector(".js-gradient-list");
+      for (var i = 0; i < gradientList.length; i++) {
+        var li = document.createElement("li");\
+        li.setAttribute("style", "background-color: " + gradientList[i]);
+        li.style.height = "30px";
+        li.style.width = "30px";
+        li.style.display = "inline-block";
+
+        ul.appendChild(li);
+      }
+    }
+    </script>
+  </body>
+</html>
