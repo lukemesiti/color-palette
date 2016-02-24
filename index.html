@@ -7,18 +7,19 @@
   </head>
   <body>
     <input class="js-color-picker" type="color" onchange="getColorVal()"/>
+    <input class="js-color-count" type="text" value="5"/>
     <ul class="js-gradient-list">
 
     </ul>
     <script type="text/javascript">
     function getColorVal(){
       var colorPicker = document.querySelector(".js-color-picker");
-      console.log(colorPalette.getColorGradient(colorPicker.value, 3));
-      var gradientList = colorPalette.getColorGradient(colorPicker.value, 3);
+      var colorCount = document.querySelector(".js-color-count");
+      var gradientList = colorPalette.getColorGradient(colorPicker.value, Number(colorCount.value));
 
       var ul = document.querySelector(".js-gradient-list");
       for (var i = 0; i < gradientList.length; i++) {
-        var li = document.createElement("li");\
+        var li = document.createElement("li");
         li.setAttribute("style", "background-color: " + gradientList[i]);
         li.style.height = "30px";
         li.style.width = "30px";
