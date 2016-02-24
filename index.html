@@ -16,7 +16,7 @@
       var colorPicker = document.querySelector(".js-color-picker");
       var colorCount = document.querySelector(".js-color-count");
       var gradientList = colorPalette.getColorGradient(colorPicker.value, Number(colorCount.value));
-      var complimentaryColors = colorPalette.getComplimentaryColors(colorPicker.value);
+      var triadicColors = colorPalette.getTriadicColors(colorPicker.value);
 
       var ul = document.querySelector(".js-gradient-list");
       for (var i = 0; i < gradientList.length; i++) {
@@ -28,9 +28,9 @@
 
         ul.appendChild(li);
       }
-      for (var i = 0; i < complimentaryColors.length; i++) {
+      for (var i = 0; i < triadicColors.length; i++) {
         var li = document.createElement("li");
-        li.setAttribute("style", "background-color: " + complimentaryColors[i]);
+        li.setAttribute("style", "background-color: " + triadicColors[i]);
         li.style.height = "40px";
         li.style.width = "40px";
         li.style.display = "inline-block";

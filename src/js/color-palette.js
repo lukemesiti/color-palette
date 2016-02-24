@@ -9,20 +9,20 @@ Number.isInteger = Number.isInteger || function(value) {
 (function(exports){
   // todo: get analogous colors
   // todo: get complimentary colors
-  exports.getComplimentaryColors = function(hex) {
+  exports.getTriadicColors = function(hex) {
     var rgb = hexToRgb(hex);
     var hsv = rgbToHsv(rgb.r, rgb.g, rgb.b);
 
     var compOne = hsvToRgb(hsv.h + 0.33, hsv.s, hsv.v);
     var compTwo = hsvToRgb(hsv.h + 0.66, hsv.s, hsv.v);
-    var complimentaryColors =
+    var triadicColors =
     [
       hex,
       rgbToHex(compOne.red, compOne.green, compOne.blue),
       rgbToHex(compTwo.red, compTwo.green, compTwo.blue)
     ];
 
-    return complimentaryColors;
+    return triadicColors;
   }
 
   exports.getColorGradient = function(hex, length) {
