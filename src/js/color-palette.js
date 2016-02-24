@@ -9,6 +9,21 @@ Number.isInteger = Number.isInteger || function(value) {
 (function(exports){
   // todo: get analogous colors
   // todo: get complimentary colors
+  exports.getComplimentaryColors = function(hex) {
+    var rgb = hexToRgb(hex);
+    var hsv = rgbToHsv(rgb.r, rgb.g, rgb.b);
+
+    var compOne = hsvToRgb(hsv.h + 0.33, hsv.s, hsv.v);
+    var compTwo = hsvToRgb(hsv.h + 0.66, hsv.s, hsv.v);
+    var complimentaryColors =
+    [
+      hex,
+      rgbToHex(compOne.red, compOne.green, compOne.blue),
+      rgbToHex(compTwo.red, compTwo.green, compTwo.blue)
+    ];
+
+    return complimentaryColors;
+  }
 
   exports.getColorGradient = function(hex, length) {
     if (hex == null || length == null) {
@@ -28,7 +43,7 @@ Number.isInteger = Number.isInteger || function(value) {
     var colorGradient = [];
     var rgb = hexToRgb(hex);
     var hsv = rgbToHsv(rgb.r, rgb.g, rgb.b);
-
+    console.log(hsv.h);
     // tints
     for(var i = 1; i <= length/2; i++) {
       rgb = hsvToRgb(hsv.h, 1/(length/2)*i, 1);
