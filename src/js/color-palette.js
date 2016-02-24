@@ -72,7 +72,6 @@ Number.isInteger = Number.isInteger || function(value) {
     r = r / 255, g = g / 255, b = b / 255;
     var max = Math.max(r, g, b), min = Math.min(r, g, b);
     var h, s, v = max;
-
     var d = max - min;
     s = max == 0 ? 0 : d / max;
 
@@ -86,13 +85,11 @@ Number.isInteger = Number.isInteger || function(value) {
         }
         h /= 6;
     }
-
     return {h: h, s: s, v: v};
   }
 
   function hsvToRgb(h, s, v) {
       var r, g, b;
-
       var i = Math.floor(h * 6);
       var f = h * 6 - i;
       var p = v * (1 - s);
@@ -107,7 +104,6 @@ Number.isInteger = Number.isInteger || function(value) {
           case 4: r = t, g = p, b = v; break;
           case 5: r = v, g = p, b = q; break;
       }
-
       return { red: r * 255, green: g * 255, blue: b * 255};
   }
 
