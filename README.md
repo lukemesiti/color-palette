@@ -1,2 +1,2 @@
-# color-palette
-A simple JS script to produce various color palettes
+# colorPalette.js
+A simple JS library to produce various color palettes
