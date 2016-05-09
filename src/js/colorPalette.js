@@ -26,7 +26,27 @@ var colorPalette = (function(){
     return color;
   }
 
+  function hueShift(h, s) {
+    h +=s;
+    while (h >= 360) {
+      h -= 360;
+    }
+    while (h < 0) {
+      h += 360;
+    }
+    return h;
+  }
+
   // todo: get analogous colors
+  cp.getAnalogousColors = function (hex) {
+    const color = initColor(hex);
+    const analogousOne = initColor(hex);
+    analogousOne.setHsv(hueShift((analogousOne.h*360), -40)/360, analogousOne.s, analogousOne.v);
+    const analogousTwo = initColor(hex);
+    analogousTwo.setHsv(hueShift((analogousTwo.h*360), 40)/360, analogousTwo.s, analogousTwo.v);
+
+    return [analogousOne, color, analogousTwo];
+  }
 
   cp.getComplimentaryColors = function (hex) {
     const color = initColor(hex);
