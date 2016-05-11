@@ -136,13 +136,13 @@ var colorPalette = function () {
   };
 
   Color.prototype.calculateHsv = function () {
-    var r = this.r / 255;
-    var g = this.g / 255;
-    var b = this.b / 255;
+    var r = this.r / 255,
+        g = this.g / 255,
+        b = this.b / 255;
     var max = Math.max(r, g, b),
         min = Math.min(r, g, b);
-    var h,
-        s,
+    var h = void 0,
+        s = void 0,
         v = max;
     var d = max - min;
     s = max == 0 ? 0 : d / max;
@@ -175,7 +175,9 @@ var colorPalette = function () {
   };
 
   Color.prototype.hsvToRgb = function () {
-    var r, g, b;
+    var r = void 0,
+        g = void 0,
+        b = void 0;
     var i = Math.floor(this.h * 6);
     var f = this.h * 6 - i;
     var p = this.v * (1 - this.s);

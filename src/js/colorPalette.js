@@ -7,7 +7,7 @@ Number.isInteger = Number.isInteger || function(value) {
 };
 
 var colorPalette = (function(){
-  var cp = {};
+  let cp = {};
 
   function Color(hex) {
     this.hex = hex;
@@ -138,12 +138,10 @@ var colorPalette = (function(){
   }
 
   Color.prototype.calculateHsv = function () {
-    var r = this.r / 255;
-    var g = this.g / 255;
-    var b = this.b / 255;
-    var max = Math.max(r, g, b), min = Math.min(r, g, b);
-    var h, s, v = max;
-    var d = max - min;
+    let r = this.r / 255, g = this.g / 255, b = this.b / 255;
+    let max = Math.max(r, g, b), min = Math.min(r, g, b);
+    let h, s, v = max;
+    let d = max - min;
     s = max == 0 ? 0 : d / max;
 
     if (max == min) {
@@ -171,12 +169,12 @@ var colorPalette = (function(){
   }
 
   Color.prototype.hsvToRgb = function () {
-      var r, g, b;
-      var i = Math.floor(this.h * 6);
-      var f = this.h * 6 - i;
-      var p = this.v * (1 - this.s);
-      var q = this.v * (1 - f * this.s);
-      var t = this.v * (1 - (1 - f) * this.s);
+      let r, g, b;
+      let i = Math.floor(this.h * 6);
+      let f = this.h * 6 - i;
+      let p = this.v * (1 - this.s);
+      let q = this.v * (1 - f * this.s);
+      let t = this.v * (1 - (1 - f) * this.s);
 
       switch (i % 6) {
           case 0: r = this.v, g = t, b = p; break;
