@@ -20,6 +20,9 @@ var colorPalette = (function(){
   }
 
   function initColor(hex) {
+    if(hex == null || !/^#([0-9a-f]{3}){1,2}$/.test(hex)) {
+      return;
+    }
     const color = new Color(hex);
     color.calculateRgb();
     color.calculateHsv();
@@ -45,7 +48,11 @@ var colorPalette = (function(){
     const analogousTwo = initColor(hex);
     analogousTwo.setHsv(hueShift((analogousTwo.h*360), 40)/360, analogousTwo.s, analogousTwo.v);
 
-    return [analogousOne, color, analogousTwo];
+    return {
+      type: "analogous",
+      class: "a",
+      colors: [analogousOne, color, analogousTwo]
+    };
   }
 
   cp.getComplimentaryColors = function (hex) {
@@ -53,7 +60,11 @@ var colorPalette = (function(){
     const complimentaryColor = initColor(hex);
     complimentaryColor.setHsv(complimentaryColor.h + 0.5, complimentaryColor.s, complimentaryColor.v);
 
-    return [color, complimentaryColor];
+    return {
+      type: "complimentary",
+      class: "c",
+      colors: [color, complimentaryColor]
+    };
   }
 
   cp.getTriadicColors = function (hex) {
@@ -63,7 +74,11 @@ var colorPalette = (function(){
     const triadThree = initColor(hex);
     triadThree.setHsv(triadThree.h + 0.66, triadThree.s, triadThree.v);
 
-    return [triadOne, triadTwo, triadThree];
+    return {
+      type: "triadic",
+      class: "t",
+      colors: [triadOne, triadTwo, triadThree]
+    };
   }
 
   // cp.getColorGradient = function(hex, length) {

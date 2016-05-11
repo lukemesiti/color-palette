@@ -15,7 +15,7 @@ gulp.task('test', function (done) {
 });
 
 gulp.task('babel', function () {
-  return gulp.src('src/js/colorPalette.js')
+  return gulp.src('src/js/*.js')
         .pipe(babel())
         .pipe(gulp.dest('dist'));
 });

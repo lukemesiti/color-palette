@@ -20,12 +20,12 @@
 
       <h2>COMPLIMENTARY</h2>
       <ul class="row js-complimentary-list">
-        <li class="c1">
+        <li class="c0">
           <span class="color-box"></span>
           <span class="color-hex"></span>
           <span class="color-rgb"></span>
         </li><!--
-     --><li class="c2">
+     --><li class="c1">
           <span class="color-box"></span>
           <span class="color-hex"></span>
           <span class="color-rgb"></span>
@@ -34,17 +34,17 @@
 
       <h2>ANALOGOUS</h2>
       <ul class="row js-analogous-list">
-        <li class="a1">
+        <li class="a0">
            <span class="color-box"></span>
            <span class="color-hex"></span>
            <span class="color-rgb"></span>
         </li><!--
-     --><li class="a2">
+     --><li class="a1">
           <span class="color-box"></span>
           <span class="color-hex"></span>
           <span class="color-rgb"></span>
         </li><!--
-     --><li class="a3">
+     --><li class="a2">
           <span class="color-box"></span>
           <span class="color-hex"></span>
           <span class="color-rgb"></span>
@@ -53,17 +53,17 @@
 
       <h2>TRIADIC</h2>
       <ul class="row js-triadic-list">
-        <li class="t1">
+        <li class="t0">
            <span class="color-box"></span>
            <span class="color-hex"></span>
            <span class="color-rgb"></span>
         </li><!--
-     --><li class="t2">
+     --><li class="t1">
           <span class="color-box"></span>
           <span class="color-hex"></span>
           <span class="color-rgb"></span>
         </li><!--
-     --><li class="t3">
+     --><li class="t2">
           <span class="color-box"></span>
           <span class="color-hex"></span>
           <span class="color-rgb"></span>
@@ -71,87 +71,6 @@
       </ul>
     </div>
 
-    <script type="text/javascript">
-
-    function getColorVal(){
-      var colorPicker = document.querySelector(".js-color-picker");
-      // var colorCount = document.querySelector(".js-color-count");
-      // var gradientList = colorPalette.getColorGradient(colorPicker.value, Number(colorCount.value));
-      // colorPalette.initColor(colorPicker.value);
-      var triadicColors = colorPalette.getTriadicColors(colorPicker.value);
-      var complimentaryColors = colorPalette.getComplimentaryColors(colorPicker.value);
-      var analogousColors = colorPalette.getAnalogousColors(colorPicker.value);
-
-      // var ul = document.querySelector(".js-gradient-list");
-      // for (var i = 0; i < gradientList.length; i++) {
-      //   var li = document.createElement("li");
-      //   li.setAttribute("style", "background-color: " + gradientList[i]);
-      //   li.style.height = "30px";
-      //   li.style.width = "30px";
-      //   li.style.display = "inline-block";
-      //
-      //   ul.appendChild(li);
-      // }
-      // var triadicList = document.querySelector(".js-triadic-list");
-      // for (var i = 0; i < triadicColors.length; i++) {
-      //   var li = document.createElement("li");
-      //   li.setAttribute("style", "background-color: " + triadicColors[i]);
-      //   li.style.height = "40px";
-      //   li.style.width = "40px";
-      //   li.style.display = "inline-block";
-      //
-      //   triadicList.appendChild(li);
-      // }
-
-      var triadicListFirst = document.querySelector(".js-triadic-list .t1");
-      var triadicListSecond = document.querySelector(".js-triadic-list .t2");
-      var triadicListThird = document.querySelector(".js-triadic-list .t3");
-
-      triadicListFirst.setAttribute("style", "background-color: " + triadicColors[0].hex);
-      triadicListSecond.setAttribute("style", "background-color: " + triadicColors[1].hex);
-      triadicListThird.setAttribute("style", "background-color: " + triadicColors[2].hex);
-      document.querySelector(".js-triadic-list .t1 .color-hex").textContent = triadicColors[0].hex;
-      document.querySelector(".js-triadic-list .t2 .color-hex").textContent = triadicColors[1].hex;
-      document.querySelector(".js-triadic-list .t3 .color-hex").textContent = triadicColors[2].hex;
-      document.querySelector(".js-triadic-list .t1 .color-rgb").textContent = "rgb(" + triadicColors[0].r + " ," + triadicColors[0].g + " ," + triadicColors[0].b + ")";
-      document.querySelector(".js-triadic-list .t2 .color-rgb").textContent = "rgb(" + triadicColors[1].r + " ," + triadicColors[1].g + " ," + triadicColors[1].b + ")";
-      document.querySelector(".js-triadic-list .t3 .color-rgb").textContent = "rgb(" + triadicColors[2].r + " ," + triadicColors[2].g + " ," + triadicColors[2].b + ")";
-
-      var complimentaryListFirst = document.querySelector(".js-complimentary-list .c1");
-      var complimentaryListSecond = document.querySelector(".js-complimentary-list .c2");
-
-      complimentaryListFirst.setAttribute("style", "background-color: " + complimentaryColors[0].hex);
-      complimentaryListSecond.setAttribute("style", "background-color: " + complimentaryColors[1].hex);
-      document.querySelector(".js-complimentary-list .c1 .color-hex").textContent = complimentaryColors[0].hex;
-      document.querySelector(".js-complimentary-list .c2 .color-hex").textContent = complimentaryColors[1].hex;
-      document.querySelector(".js-complimentary-list .c1 .color-rgb").textContent = "rgb(" + complimentaryColors[0].r + " ," + complimentaryColors[0].g + " ," + complimentaryColors[0].b + ")";
-      document.querySelector(".js-complimentary-list .c2 .color-rgb").textContent = "rgb(" + complimentaryColors[1].r + " ," + complimentaryColors[1].g + " ," + complimentaryColors[1].b + ")";
-
-      var analogousListFirst = document.querySelector(".js-analogous-list .a1");
-      var analogousListSecond = document.querySelector(".js-analogous-list .a2");
-      var analogousListThird = document.querySelector(".js-analogous-list .a3");
-
-      analogousListFirst.setAttribute("style", "background-color: " + analogousColors[0].hex);
-      analogousListSecond.setAttribute("style", "background-color: " + analogousColors[1].hex);
-      analogousListThird.setAttribute("style", "background-color: " + analogousColors[2].hex);
-      document.querySelector(".js-analogous-list .a1 .color-hex").textContent = analogousColors[0].hex;
-      document.querySelector(".js-analogous-list .a2 .color-hex").textContent = analogousColors[1].hex;
-      document.querySelector(".js-analogous-list .a3 .color-hex").textContent = analogousColors[2].hex;
-      document.querySelector(".js-analogous-list .a1 .color-rgb").textContent = "rgb(" + analogousColors[0].r + " ," + analogousColors[0].g + " ," + analogousColors[0].b + ")";
-      document.querySelector(".js-analogous-list .a2 .color-rgb").textContent = "rgb(" + analogousColors[1].r + " ," + analogousColors[1].g + " ," + analogousColors[1].b + ")";
-      document.querySelector(".js-analogous-list .a3 .color-rgb").textContent = "rgb(" + analogousColors[2].r + " ," + analogousColors[2].g + " ," + analogousColors[2].b + ")";
-
-
-      // for (var i = 0; i < complimentaryColors.length; i++) {
-      //   var li = document.createElement("li");
-      //   li.setAttribute("style", "background-color: " + complimentaryColors[i]);
-      //   li.style.height = "50px";
-      //   li.style.width = "50px";
-      //   li.style.display = "inline-block";
-      //
-      //   ul.appendChild(li);
-      // }
-    }
-    </script>
+    <script type="text/javascript" src="dist/app.js"></script>
   </body>
 </html>
