@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 Number.isInteger = Number.isInteger || function(value) {
   return typeof value === "number" &&
@@ -11,19 +11,24 @@ var colorPalette = (function(){
 
   function Color(hex) {
     this.hex = hex;
-    this.r = 0;
-    this.g = 0;
-    this.b = 0;
+    this.r = null;
+    this.g = null;
+    this.b = null;
     this.h = null;
     this.s = null;
     this.v = null;
+    this.l = null;
   }
 
-  function initColor(hex) {
+  function initColor(hex, luminance) {
     if(hex == null || !/^#([0-9a-f]{3}){1,2}$/.test(hex)) {
       return;
     }
     const color = new Color(hex);
+    if (luminance) {
+      color.setLuminance(luminance);
+      color.calculateLuminance();
+    }
     color.calculateRgb();
     color.calculateHsv();
     return color;
@@ -40,7 +45,6 @@ var colorPalette = (function(){
     return h;
   }
 
-  // todo: get analogous colors
   cp.getAnalogousColors = function (hex) {
     const color = initColor(hex);
     const analogousOne = initColor(hex);
@@ -81,38 +85,28 @@ var colorPalette = (function(){
     };
   }
 
-  // cp.getColorGradient = function(hex, length) {
-  //   if (hex == null || length == null) {
-  //     return [];
-  //   }
-  //   // is valid hex value
-  //   if(!/^#([0-9a-f]{3}){1,2}$/.test(hex)) {
-  //     return [];
-  //   }
-  //   if(!Number.isInteger(length)) {
-  //     return [];
-  //   }
-  //   if(length < 1) {
-  //     return [];
-  //   }
-  //
-  //   var colorGradient = [];
-  //   var rgb = hexToRgb(hex);
-  //   var hsv = rgbToHsv(rgb.r, rgb.g, rgb.b);
-  //   console.log(hsv.h);
-  //   // tints
-  //   for(var i = 1; i <= length/2; i++) {
-  //     rgb = hsvToRgb(hsv.h, 1/(length/2)*i, 1);
-  //     colorGradient.push(rgbToHex(rgb.red, rgb.green, rgb.blue));
-  //   }
-  //
-  //   // shades
-  //   for(var i = length/2; i > 0; i--) {
-  //     rgb = hsvToRgb(hsv.h, 1, 1/(length/2)*i);
-  //     colorGradient.push(rgbToHex(rgb.red, rgb.green, rgb.blue));
-  //   }
-  //   return colorGradient;
-  // };
+  cp.getGradientColors = function (hex) {
+    const color = initColor(hex, 0);
+    const colorGradientOne = initColor(hex, 0.3);
+    const colorGradientTwo = initColor(hex, -0.5);
+
+    return {
+      type: "gradient",
+      class: "g",
+      colors: [color, colorGradientTwo, colorGradientOne]
+    };
+  }
+
+  Color.prototype.calculateLuminance = function () {
+    let trimHex = this.hex.substring(1);
+    let rgb = "#", c;
+  	for (let i = 0; i < 3; i++) {
+  		c = parseInt(trimHex.substr(i*2,2), 16);
+  		c = Math.round(Math.min(Math.max(0, c + (c * this.l)), 255)).toString(16);
+  		rgb += ("00"+c).substr(c.length);
+  	}
+    this.hex = rgb;
+  }
 
   Color.prototype.calculateRgb = function () {
     let trimHex = this.hex.substring(1);
@@ -157,6 +151,10 @@ var colorPalette = (function(){
     this.h = h;
     this.s = s;
     this.v = v;
+  }
+
+  Color.prototype.setLuminance = function (l) {
+    this.l = l;
   }
 
   Color.prototype.setHsv = function (h, s, v) {

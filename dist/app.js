@@ -1,9 +1,11 @@
 "use strict";
+"user strict";
 
 function getColorPalettes() {
   var colorPicker = document.querySelector(".js-color-picker");
 
   var palettes = [];
+  palettes.push(colorPalette.getGradientColors(colorPicker.value));
   palettes.push(colorPalette.getTriadicColors(colorPicker.value));
   palettes.push(colorPalette.getComplimentaryColors(colorPicker.value));
   palettes.push(colorPalette.getAnalogousColors(colorPicker.value));
