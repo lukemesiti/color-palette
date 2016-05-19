@@ -20,83 +20,6 @@ var colorPalette = (function(){
     this.l = null;
   }
 
-  function initColor(hex, luminance) {
-    if(hex == null || !/^#([0-9a-f]{3}){1,2}$/.test(hex)) {
-      return;
-    }
-    const color = new Color(hex);
-    if (luminance) {
-      color.setLuminance(luminance);
-      color.calculateLuminance();
-    }
-    color.calculateRgb();
-    color.calculateHsv();
-    return color;
-  }
-
-  function hueShift(h, s) {
-    h +=s;
-    while (h >= 360) {
-      h -= 360;
-    }
-    while (h < 0) {
-      h += 360;
-    }
-    return h;
-  }
-
-  cp.getAnalogousColors = function (hex) {
-    const color = initColor(hex);
-    const analogousOne = initColor(hex);
-    analogousOne.setHsv(hueShift((analogousOne.h*360), -40)/360, analogousOne.s, analogousOne.v);
-    const analogousTwo = initColor(hex);
-    analogousTwo.setHsv(hueShift((analogousTwo.h*360), 40)/360, analogousTwo.s, analogousTwo.v);
-
-    return {
-      type: "analogous",
-      class: "a",
-      colors: [analogousOne, color, analogousTwo]
-    };
-  }
-
-  cp.getComplimentaryColors = function (hex) {
-    const color = initColor(hex);
-    const complimentaryColor = initColor(hex);
-    complimentaryColor.setHsv(complimentaryColor.h + 0.5, complimentaryColor.s, complimentaryColor.v);
-
-    return {
-      type: "complimentary",
-      class: "c",
-      colors: [color, complimentaryColor]
-    };
-  }
-
-  cp.getTriadicColors = function (hex) {
-    const triadOne = initColor(hex);
-    const triadTwo = initColor(hex);
-    triadTwo.setHsv(triadTwo.h + 0.33, triadTwo.s, triadTwo.v);
-    const triadThree = initColor(hex);
-    triadThree.setHsv(triadThree.h + 0.66, triadThree.s, triadThree.v);
-
-    return {
-      type: "triadic",
-      class: "t",
-      colors: [triadOne, triadTwo, triadThree]
-    };
-  }
-
-  cp.getGradientColors = function (hex) {
-    const color = initColor(hex, 0);
-    const colorGradientOne = initColor(hex, 0.3);
-    const colorGradientTwo = initColor(hex, -0.5);
-
-    return {
-      type: "gradient",
-      class: "g",
-      colors: [color, colorGradientTwo, colorGradientOne]
-    };
-  }
-
   Color.prototype.calculateLuminance = function () {
     let trimHex = this.hex.substring(1);
     let rgb = "#", c;
@@ -185,6 +108,67 @@ var colorPalette = (function(){
       this.r = Math.round(r * 255);
       this.g = Math.round(g * 255);
       this.b = Math.round(b * 255);
+  }
+
+  function initColor(hex, luminance) {
+    if(hex == null || !/^#([0-9a-f]{3}){1,2}$/.test(hex)) {
+      return;
+    }
+    const color = new Color(hex);
+    if (luminance) {
+      color.setLuminance(luminance);
+      color.calculateLuminance();
+    }
+    color.calculateRgb();
+    color.calculateHsv();
+    return color;
+  }
+
+  function hueShift(h, s) {
+    h +=s;
+    while (h >= 360) {
+      h -= 360;
+    }
+    while (h < 0) {
+      h += 360;
+    }
+    return h;
+  }
+
+  cp.getAnalogousColors = function (hex) {
+    const color = initColor(hex);
+    const analogousOne = initColor(hex);
+    analogousOne.setHsv(hueShift((analogousOne.h*360), -40)/360, analogousOne.s, analogousOne.v);
+    const analogousTwo = initColor(hex);
+    analogousTwo.setHsv(hueShift((analogousTwo.h*360), 40)/360, analogousTwo.s, analogousTwo.v);
+
+    return [analogousOne, color, analogousTwo];
+  }
+
+  cp.getComplimentaryColors = function (hex) {
+    const color = initColor(hex);
+    const complimentaryColor = initColor(hex);
+    complimentaryColor.setHsv(complimentaryColor.h + 0.5, complimentaryColor.s, complimentaryColor.v);
+
+    return [color, complimentaryColor];
+  }
+
+  cp.getTriadicColors = function (hex) {
+    const triadOne = initColor(hex);
+    const triadTwo = initColor(hex);
+    triadTwo.setHsv(triadTwo.h + 0.33, triadTwo.s, triadTwo.v);
+    const triadThree = initColor(hex);
+    triadThree.setHsv(triadThree.h + 0.66, triadThree.s, triadThree.v);
+
+    return [triadOne, triadTwo, triadThree];
+  }
+
+  cp.getGradientColors = function (hex) {
+    const color = initColor(hex, 0);
+    const colorGradientOne = initColor(hex, 0.3);
+    const colorGradientTwo = initColor(hex, -0.5);
+
+    return [color, colorGradientTwo, colorGradientOne];
   }
 
   return cp;
