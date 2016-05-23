@@ -1,19 +1,13 @@
 "user strict";
 
-import ColorPalette from "./ColorPalette.js";
-
-const colorPicker = document.querySelector(".js-color-picker");
-colorPicker.addEventListener("change", getColorPalettes);
-
-function getColorPalettes(event){
-  let colorPalette = new ColorPalette();
-  const value = event.target.value;
+function getColorPalettes(){
+  const colorPicker = document.querySelector(".js-color-picker");
 
   const palettes = [];
-  palettes.push(addPalettes("gradient",colorPalette.getGradientColors(value)));
-  palettes.push(addPalettes("triadic",colorPalette.getTriadicColors(value)));
-  palettes.push(addPalettes("complimentary",colorPalette.getComplimentaryColors(value)));
-  palettes.push(addPalettes("analogous",colorPalette.getAnalogousColors(value)));
+  palettes.push(addPalettes("gradient",colorPalette.getGradientColors(colorPicker.value)));
+  palettes.push(addPalettes("triadic",colorPalette.getTriadicColors(colorPicker.value)));
+  palettes.push(addPalettes("complimentary",colorPalette.getComplimentaryColors(colorPicker.value)));
+  palettes.push(addPalettes("analogous",colorPalette.getAnalogousColors(colorPicker.value)));
 
   for(let x=0; x < palettes.length; x++) {
     const palette = palettes[x];
